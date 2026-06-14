@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Assessment;
 use App\Services\DSSService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class SelectionController extends Controller
 {
@@ -14,14 +13,33 @@ class SelectionController extends Controller
     {
         $sessions = Assessment::select('session_name')->distinct()->pluck('session_name');
         
-        $results = [];
+        $formations = ['4-3-3', '4-4-2', '3-5-2', '4-2-3-1'];
+
+        $mode = $request->input('mode', 'ranking');
         $selectedSession = $request->input('session_name');
         $selectedPosition = $request->input('position');
+        $selectedFormation = $request->input('formation');
 
-        if ($selectedSession && $selectedPosition) {
-            $results = $dssService->runSelection($selectedSession, $selectedPosition);
+        $results = [];
+        $startingXI = [];
+
+        if ($selectedSession) {
+            if ($mode === 'ranking' && $selectedPosition) {
+                $results = $dssService->runSelection($selectedSession, $selectedPosition);
+            } elseif ($mode === 'starting_xi' && $selectedFormation) {
+                $startingXI = $dssService->generateStartingXI($selectedSession, $selectedFormation);
+            }
         }
 
-        return view('pelatih.selection.index', compact('sessions', 'results', 'selectedSession', 'selectedPosition'));
+        return view('pelatih.selection.index', compact(
+            'sessions', 
+            'formations', 
+            'mode', 
+            'results', 
+            'startingXI', 
+            'selectedSession', 
+            'selectedPosition', 
+            'selectedFormation'
+        ));
     }
 }

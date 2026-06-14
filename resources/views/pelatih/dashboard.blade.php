@@ -8,14 +8,14 @@
         <div class="max-w-3xl">
             <h2 class="text-2xl font-bold">Selamat Datang, Coach {{ Auth::user()->name }}!</h2>
             <p class="text-orange-100 text-sm mt-2 leading-relaxed">
-                Siap untuk sesi penilaian hari ini? Pantau performa pemain Anda, input data asesmen terbaru, dan gunakan sistem pendukung keputusan untuk menentukan strategi tim terbaik.
+                Siap untuk sesi penilaian hari ini? Pantau performa pemain Anda, input data asesmen terbaru, dan gunakan algoritma <strong>PM-MOORA</strong> untuk mendapatkan rekomendasi seleksi tim terbaik secara objektif.
             </p>
             <div class="mt-6 flex flex-wrap gap-3">
                 <a href="{{ route('pelatih.assessments.index') }}" class="bg-white text-orange-700 px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-orange-50 transition-colors shadow-sm">
                     Mulai Penilaian
                 </a>
                 <a href="{{ route('pelatih.selection.index') }}" class="bg-orange-800/50 text-white border border-orange-500/30 px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-orange-800/70 transition-colors">
-                    Lihat Ranking
+                    Lihat Ranking Pemain
                 </a>
             </div>
         </div>
@@ -48,7 +48,7 @@
             </div>
             <div>
                 <p class="text-sm font-medium text-gray-500">Sesi Aktif Saat Ini</p>
-                <h3 class="text-lg font-bold text-gray-900 mt-1">Musim 2026</h3>
+                <h3 class="text-lg font-bold text-gray-900 mt-1">Musim {{ date('Y') }}</h3>
             </div>
         </div>
     </div>

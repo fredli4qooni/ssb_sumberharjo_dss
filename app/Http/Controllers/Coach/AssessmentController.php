@@ -41,20 +41,22 @@ class AssessmentController extends Controller
         $validated = $request->validate([
             'session_name' => 'required|string|max:255',
             'speed' => 'required|integer|between:1,5',
-            'stamina' => 'required|integer|between:1,5',
-            'strength' => 'required|integer|between:1,5',
+            'endurance' => 'required|integer|between:1,5',
+            'kelincahan' => 'required|integer|between:1,5',
             'passing' => 'required|integer|between:1,5',
+            'controlling' => 'required|integer|between:1,5',
             'dribbling' => 'required|integer|between:1,5',
-            'shooting' => 'required|integer|between:1,5',
             'positioning' => 'required|integer|between:1,5',
-            'vision' => 'required|integer|between:1,5',
-            'cooperation' => 'required|integer|between:1,5',
+            'pemahaman_taktik' => 'required|integer|between:1,5',
+            'mental_bertanding' => 'required|integer|between:1,5',
+            'ketidakhadiran' => 'required|integer|min:0',
             'coach_notes' => 'nullable|string',
         ]);
 
-        $physical = round(($validated['speed'] + $validated['stamina'] + $validated['strength']) / 3, 2);
-        $technical = round(($validated['passing'] + $validated['dribbling'] + $validated['shooting']) / 3, 2);
-        $tactical = round(($validated['positioning'] + $validated['vision'] + $validated['cooperation']) / 3, 2);
+        $physical = round(($validated['speed'] + $validated['endurance'] + $validated['kelincahan']) / 3, 2);
+        $technical = round(($validated['passing'] + $validated['controlling'] + $validated['dribbling']) / 3, 2);
+        $tactical = round(($validated['positioning'] + $validated['pemahaman_taktik']) / 2, 2);
+        $mental = round($validated['mental_bertanding'], 2);
 
         Assessment::create(array_merge($validated, [
             'player_id' => $player->id,
@@ -62,14 +64,14 @@ class AssessmentController extends Controller
             'physical_score' => $physical,
             'technical_score' => $technical,
             'tactical_score' => $tactical,
+            'mental_score' => $mental,
         ]));
 
-        
         /** @var \App\Models\User $coach */
         $coach = Auth::user();
 
         $admins = User::where('role', 'admin')->get();
-        Notification::send($admins, new AssessmentCompletedNotification($player, $coach));
+        Notification::send($admins, new \App\Notifications\AssessmentCompletedNotification($player, $coach));
 
         return redirect()->route('pelatih.assessments.index')->with('success', 'Penilaian untuk ' . $player->name . ' berhasil disimpan.');
     }

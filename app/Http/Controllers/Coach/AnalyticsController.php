@@ -39,15 +39,15 @@ class AnalyticsController extends Controller
         $radarData = [];
         if ($latest) {
             $radarData = [
+                $latest->endurance,
                 $latest->speed,
-                $latest->stamina,
-                $latest->strength,
+                $latest->kelincahan,
                 $latest->passing,
+                $latest->controlling,
                 $latest->dribbling,
-                $latest->shooting,
                 $latest->positioning,
-                $latest->vision,
-                $latest->cooperation
+                $latest->pemahaman_taktik,
+                $latest->mental_bertanding
             ];
         }
 
@@ -75,6 +75,7 @@ class AnalyticsController extends Controller
             'avg_physical' => round($assessments->avg('physical_score'), 2),
             'avg_technical' => round($assessments->avg('technical_score'), 2),
             'avg_tactical' => round($assessments->avg('tactical_score'), 2),
+            'avg_mental' => round($assessments->avg('mental_score'), 2),
         ];
 
         $pdf = Pdf::loadView('pelatih.analytics.report_pdf', compact('player', 'assessments', 'latest', 'stats'));

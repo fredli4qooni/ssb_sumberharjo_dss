@@ -22,10 +22,12 @@ class DssController extends Controller
             'weight_physical' => 'required|numeric',
             'weight_technical' => 'required|numeric',
             'weight_tactical' => 'required|numeric',
+            'weight_mental' => 'required|numeric',
+            'weight_ketidakhadiran' => 'required|numeric',
         ]);
 
         DB::table('dss_parameters')->where('id', 1)->update($validated);
 
-        return redirect()->back()->with('success', 'Parameter DSS berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Parameter PM-MOORA berhasil diperbarui.');
     }
 }

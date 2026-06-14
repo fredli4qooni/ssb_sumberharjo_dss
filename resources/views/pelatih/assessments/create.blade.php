@@ -24,10 +24,10 @@
             <div class="p-6 border-b border-gray-200 bg-gray-50/50">
                 <label class="block text-sm font-medium text-gray-700 mb-2">Nama Sesi Penilaian <span class="text-red-500">*</span></label>
                 <input type="text" name="session_name" required placeholder="Contoh: Seleksi Musim 2026" class="w-full md:w-1/2 px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-all">
-                <p class="text-xs text-gray-500 mt-1.5">Pastikan nama sesi seragam untuk membandingkan pemain di sesi yang sama.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-200">
+            <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-200 border-b border-gray-200">
+                
                 <div class="p-6 space-y-5">
                     <div class="flex items-center mb-2">
                         <div class="w-8 h-8 rounded bg-orange-50 text-orange-600 flex items-center justify-center mr-3">
@@ -35,35 +35,31 @@
                         </div>
                         <h4 class="text-base font-semibold text-gray-900">Aspek Fisik</h4>
                     </div>
-                    
-                    @foreach(['speed' => 'Kecepatan', 'stamina' => 'Stamina', 'strength' => 'Kekuatan Fisik'] as $field => $label)
+                    @foreach(['endurance' => 'Endurance (Daya Tahan)', 'speed' => 'Kecepatan', 'kelincahan' => 'Kelincahan'] as $field => $label)
                     <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                         <div class="flex justify-between mb-2">
                             <label class="text-sm font-medium text-gray-700">{{ $label }}</label>
                             <span class="text-sm font-bold text-orange-600" id="{{ $field }}_val">3</span>
                         </div>
                         <input type="range" name="{{ $field }}" min="1" max="5" value="3" oninput="document.getElementById('{{ $field }}_val').innerText = this.value" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange-500">
-                        <div class="flex justify-between text-xs text-gray-400 mt-2 font-medium"><span>1 (Buruk)</span><span>5 (Sangat Baik)</span></div>
                     </div>
                     @endforeach
                 </div>
 
                 <div class="p-6 space-y-5">
                     <div class="flex items-center mb-2">
-                        <div class="w-8 h-8 rounded bg-orange-50 text-orange-600 flex items-center justify-center mr-3">
+                        <div class="w-8 h-8 rounded bg-blue-50 text-blue-600 flex items-center justify-center mr-3">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z M15 9a3 3 0 11-6 0 3 3 0 016 0z M9 15h6"/></svg>
                         </div>
                         <h4 class="text-base font-semibold text-gray-900">Aspek Teknis</h4>
                     </div>
-
-                    @foreach(['passing' => 'Akurasi Passing', 'dribbling' => 'Dribbling', 'shooting' => 'Shooting'] as $field => $label)
+                    @foreach(['passing' => 'Akurasi Passing', 'controlling' => 'Controlling Bola', 'dribbling' => 'Dribbling'] as $field => $label)
                     <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                         <div class="flex justify-between mb-2">
                             <label class="text-sm font-medium text-gray-700">{{ $label }}</label>
-                            <span class="text-sm font-bold text-orange-600" id="{{ $field }}_val">3</span>
+                            <span class="text-sm font-bold text-blue-600" id="{{ $field }}_val">3</span>
                         </div>
-                        <input type="range" name="{{ $field }}" min="1" max="5" value="3" oninput="document.getElementById('{{ $field }}_val').innerText = this.value" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange-600">
-                        <div class="flex justify-between text-xs text-gray-400 mt-2 font-medium"><span>1 (Buruk)</span><span>5 (Sangat Baik)</span></div>
+                        <input type="range" name="{{ $field }}" min="1" max="5" value="3" oninput="document.getElementById('{{ $field }}_val').innerText = this.value" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600">
                     </div>
                     @endforeach
                 </div>
@@ -75,33 +71,59 @@
                         </div>
                         <h4 class="text-base font-semibold text-gray-900">Aspek Taktis</h4>
                     </div>
-
-                    @foreach(['positioning' => 'Positioning', 'vision' => 'Visi Bermain', 'cooperation' => 'Kerjasama Tim'] as $field => $label)
+                    @foreach(['positioning' => 'Positioning', 'pemahaman_taktik' => 'Pemahaman Taktik Dasar'] as $field => $label)
                     <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                         <div class="flex justify-between mb-2">
                             <label class="text-sm font-medium text-gray-700">{{ $label }}</label>
                             <span class="text-sm font-bold text-green-600" id="{{ $field }}_val">3</span>
                         </div>
                         <input type="range" name="{{ $field }}" min="1" max="5" value="3" oninput="document.getElementById('{{ $field }}_val').innerText = this.value" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-green-600">
-                        <div class="flex justify-between text-xs text-gray-400 mt-2 font-medium"><span>1 (Buruk)</span><span>5 (Sangat Baik)</span></div>
                     </div>
                     @endforeach
                 </div>
             </div>
 
+            <div class="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-200 border-b border-gray-200">
+                <div class="p-6 space-y-5">
+                    <div class="flex items-center mb-2">
+                        <div class="w-8 h-8 rounded bg-purple-50 text-purple-600 flex items-center justify-center mr-3">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <h4 class="text-base font-semibold text-gray-900">Aspek Mental</h4>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
+                        <div class="flex justify-between mb-2">
+                            <label class="text-sm font-medium text-gray-700">Mental Bertanding</label>
+                            <span class="text-sm font-bold text-purple-600" id="mental_bertanding_val">3</span>
+                        </div>
+                        <input type="range" name="mental_bertanding" min="1" max="5" value="3" oninput="document.getElementById('mental_bertanding_val').innerText = this.value" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-purple-600">
+                    </div>
+                </div>
+
+                <div class="p-6 space-y-5">
+                    <div class="flex items-center mb-2">
+                        <div class="w-8 h-8 rounded bg-red-50 text-red-600 flex items-center justify-center mr-3">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <h4 class="text-base font-semibold text-gray-900">Indisipliner (Cost)</h4>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Ketidakhadiran (Hari/Sesi)</label>
+                        <input type="number" name="ketidakhadiran" min="0" value="0" required class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500 outline-none">
+                        <p class="text-xs text-gray-400 mt-2">Jumlah alfa/absen tanpa keterangan. Mengurangi skor akhir.</p>
+                    </div>
+                </div>
+            </div>
+
             <div class="p-6 border-t border-gray-200 bg-gray-50/30">
                 <label class="block text-sm font-medium text-gray-700 mb-2">Catatan Tambahan (Opsional)</label>
-                <textarea name="coach_notes" rows="3" class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-all" placeholder="Masukkan observasi spesifik mengenai gaya bermain atau kebugaran pemain..."></textarea>
+                <textarea name="coach_notes" rows="3" class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-all"></textarea>
             </div>
         </div>
 
         <div class="flex justify-end space-x-3">
-            <a href="{{ route('pelatih.assessments.index') }}" class="px-5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
-                Batal
-            </a>
-            <button type="submit" class="px-6 py-2.5 bg-orange-600 text-white rounded-lg text-sm font-semibold hover:bg-orange-700 focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 shadow-sm transition-colors">
-                Simpan Penilaian
-            </button>
+            <a href="{{ route('pelatih.assessments.index') }}" class="px-5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">Batal</a>
+            <button type="submit" class="px-6 py-2.5 bg-orange-600 text-white rounded-lg text-sm font-semibold hover:bg-orange-700 focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors">Simpan Penilaian</button>
         </div>
     </form>
 </div>
