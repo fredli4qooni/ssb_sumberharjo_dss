@@ -21,6 +21,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     Route::get('/dss-settings', [DssController::class, 'index'])->name('dss.index');
     Route::post('/dss-settings', [DssController::class, 'update'])->name('dss.update');
+
+    Route::put('/dss-settings/profile/{id}', [DssController::class, 'updateProfile'])->name('dss.profile.update');
 });
 
 Route::middleware(['auth', 'role:super_admin'])->prefix('superadmin')->name('superadmin.')->group(function () {
