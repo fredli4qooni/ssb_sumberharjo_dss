@@ -1,7 +1,9 @@
 <div class="h-full bg-white border-r border-gray-200 w-64 fixed top-0 left-0 z-20 flex flex-col transition-transform duration-300">
     <div class="h-16 flex items-center px-6 border-b border-gray-100">
-        <div class="w-8 h-8 bg-orange-600 rounded-lg flex items-center justify-center font-bold text-white text-xl mr-3 shadow-sm">
-            S
+        <div class="w-8 h-8 bg-orange-600 rounded-lg flex items-center justify-center text-white mr-3 shadow-sm">
+            <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+                <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zM144.5 125l52.1 63.6-28.7 78.9-80.9 14.8c-10.7-31.9-10.4-66.2 1.4-98 11.2-30.5 30.6-57.5 56.1-79.3zm199 142.5l-28.7-78.9 52.1-63.6c25.5 21.8 44.9 48.8 56.1 79.3 11.8 31.8 12.1 66.1 1.4 98l-80.9-14.8zm-155.1 48l67.6 22 17.5 82.2-41.5 61.4c-35-11.4-66.6-31.7-91.8-59.2l48.2-106.4zm135.2 0l48.2 106.4c-25.2 27.5-56.8 47.8-91.8 59.2l-41.5-61.4 17.5-82.2 67.6-22zm-67.6-146.4l28.7 78.9H220.8l28.7-78.9 6.5-117.8c16.3-1 32.7-1 49 0l-6.5 117.8z"/>
+            </svg>
         </div>
         <span class="text-lg font-bold text-gray-900 tracking-tight">DSS<span class="text-orange-600">Sumberharjo</span></span>
     </div>

@@ -33,7 +33,8 @@ class AssessmentController extends Controller
 
     public function create(Player $player)
     {
-        return view('pelatih.assessments.create', compact('player'));
+        $assessments = $player->assessments()->latest()->get();
+        return view('pelatih.assessments.create', compact('player', 'assessments'));
     }
 
     public function store(Request $request, Player $player)
@@ -74,5 +75,12 @@ class AssessmentController extends Controller
         Notification::send($admins, new \App\Notifications\AssessmentCompletedNotification($player, $coach));
 
         return redirect()->route('pelatih.assessments.index')->with('success', 'Penilaian untuk ' . $player->name . ' berhasil disimpan.');
+    }
+
+    public function destroy(Assessment $assessment)
+    {
+        $assessment->delete();
+
+        return back()->with('success', 'Data penilaian berhasil dihapus.');
     }
 }

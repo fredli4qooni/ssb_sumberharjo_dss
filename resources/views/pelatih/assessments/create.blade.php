@@ -126,5 +126,48 @@
             <button type="submit" class="px-6 py-2.5 bg-orange-600 text-white rounded-lg text-sm font-semibold hover:bg-orange-700 focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors">Simpan Penilaian</button>
         </div>
     </form>
+
+    @if($assessments->count() > 0)
+    <div class="mt-8 bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="p-6 border-b border-gray-200 bg-gray-50/50">
+            <h3 class="text-base font-semibold text-gray-900">Riwayat Penilaian Pemain</h3>
+            <p class="text-sm text-gray-500 mt-1">Daftar penilaian yang sudah pernah dimasukkan untuk pemain ini.</p>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sesi</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fisik</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Teknik</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Taktik</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mental</th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach($assessments as $assessment)
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $assessment->session_name }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $assessment->created_at->format('d M Y') }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $assessment->physical_score }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $assessment->technical_score }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $assessment->tactical_score }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $assessment->mental_score }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <form action="{{ route('pelatih.assessments.destroy', $assessment->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus penilaian ini? Data yang dihapus tidak dapat dikembalikan.');" class="inline-block">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-600 hover:text-red-900 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg transition-colors border border-red-100">Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @endif
 </div>
 @endsection

@@ -39,6 +39,7 @@ Route::middleware(['auth', 'role:pelatih'])->prefix('pelatih')->name('pelatih.')
     Route::get('/assessments', [AssessmentController::class, 'index'])->name('assessments.index');
     Route::get('/assessments/{player}/create', [AssessmentController::class, 'create'])->name('assessments.create');
     Route::post('/assessments/{player}', [AssessmentController::class, 'store'])->name('assessments.store');
+    Route::delete('/assessments/{assessment}', [AssessmentController::class, 'destroy'])->name('assessments.destroy');
     Route::get('/selection', [SelectionController::class, 'index'])->name('selection.index');
     Route::get('/analytics', [AnalyticsController::class, 'index'])->name('analytics.index');
     Route::get('/analytics/{player}', [AnalyticsController::class, 'show'])->name('analytics.show');
