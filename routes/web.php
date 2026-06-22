@@ -23,6 +23,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('/dss-settings', [DssController::class, 'update'])->name('dss.update');
 
     Route::put('/dss-settings/profile/{id}', [DssController::class, 'updateProfile'])->name('dss.profile.update');
+
+    Route::get('/panduan-penilaian', [\App\Http\Controllers\GuidelineController::class, 'index'])->name('guidelines.index');
 });
 
 Route::middleware(['auth', 'role:super_admin'])->prefix('superadmin')->name('superadmin.')->group(function () {
@@ -44,6 +46,7 @@ Route::middleware(['auth', 'role:pelatih'])->prefix('pelatih')->name('pelatih.')
     Route::get('/analytics', [AnalyticsController::class, 'index'])->name('analytics.index');
     Route::get('/analytics/{player}', [AnalyticsController::class, 'show'])->name('analytics.show');
     Route::get('/analytics/{player}/pdf', [AnalyticsController::class, 'downloadPdf'])->name('analytics.pdf');
+    Route::get('/panduan-penilaian', [\App\Http\Controllers\GuidelineController::class, 'index'])->name('guidelines.index');
 });
 
 Route::post('/notifications/mark-all-read', function (\Illuminate\Http\Request $request) {
