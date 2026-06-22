@@ -188,7 +188,7 @@
                                         if ($pos === 'Forward' && ($index === 0 || $index === 2)) $yTweak = 'translate-y-4'; // Sayap agak turun
                                         if ($pos === 'Midfielder' && $index === 1) $yTweak = 'translate-y-4'; // Gelandang bertahan tenggelam
                                     } elseif ($selectedFormation === '4-2-3-1') {
-                                        if ($pos === 'Midfielder' && ($index === 3 || $index === 4)) $yTweak = 'translate-y-6'; // 2 gelandang jangkar turun
+                                        if ($pos === 'Midfielder' && ($index === 1 || $index === 3)) $yTweak = 'translate-y-12'; // 2 gelandang jangkar (indeks 1 dan 3) ditarik turun membentuk 2 poros
                                     } elseif ($selectedFormation === '3-5-2') {
                                         if ($pos === 'Midfielder' && ($index === 0 || $index === 4)) $yTweak = 'translate-y-3'; // Sayap murni melebar & turun
                                     }
