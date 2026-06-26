@@ -54,7 +54,7 @@
                 <td style="text-align: center">{{ $item->technical_score }}</td>
                 <td style="text-align: center">{{ $item->tactical_score }}</td>
                 <td style="text-align: center">{{ $item->mental_score ?? '-' }}</td>
-                <td style="text-align: center">{{ $item->ketidakhadiran }} hr</td>
+                <td style="text-align: center">{{ $item->ketidakhadiran }}</td>
             </tr>
             @endforeach
         </tbody>

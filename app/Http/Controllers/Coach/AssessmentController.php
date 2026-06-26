@@ -50,7 +50,7 @@ class AssessmentController extends Controller
             'positioning' => 'required|integer|between:1,5',
             'pemahaman_taktik' => 'required|integer|between:1,5',
             'mental_bertanding' => 'required|integer|between:1,5',
-            'ketidakhadiran' => 'required|integer|min:0',
+            'ketidakhadiran' => 'required|integer|between:1,5',
             'coach_notes' => 'nullable|string',
         ]);
 

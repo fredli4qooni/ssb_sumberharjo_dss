@@ -322,13 +322,13 @@
                     </div>
                     <div class="overflow-x-auto">
                         <table class="min-w-full rubric-table">
-                            <thead><tr><th class="score-col">Skor</th><th style="width:150px">Persentase</th><th>Deskripsi Performa</th></tr></thead>
+                            <thead><tr><th class="px-4 py-3 font-bold text-left">Skor</th><th class="px-4 py-3 font-bold text-left">Kategori</th><th style="width:150px">Persentase</th><th>Deskripsi Performa</th></tr></thead>
                             <tbody>
-                                <tr><td class="score-col score-5">5</td><td>< 10 %</td><td>Sangat baik. Tingkat ketidakhadiran sangat minimal atau tidak lebih dari 2 kali absen.</td></tr>
-                                <tr><td class="score-col score-4">4</td><td>10% — 20%</td><td>Baik. Jarang absen, masih dalam batas toleransi tim wajar (3–6 kali absen).</td></tr>
-                                <tr><td class="score-col score-3">3</td><td>21% — 35%</td><td>Cukup. Beberapa kali tidak hadir, perkembangan terhambat (7–10 kali absen).</td></tr>
-                                <tr><td class="score-col score-2">2</td><td>36% — 55%</td><td>Buruk. Sering absen latihan, kurang komitmen (11–16 kali absen).</td></tr>
-                                <tr><td class="score-col score-1">1</td><td>> 55%</td><td>Sangat Buruk. Sering mangkir, tidak memenuhi standar tim (> 17 kali absen).</td></tr>
+                                <tr><td class="font-bold text-center">5</td><td class="font-bold text-green-600 px-4">Sangat Baik</td><td>< 10 %</td><td>Tingkat ketidakhadiran sangat minimal atau tidak lebih dari 2 kali absen.</td></tr>
+                                <tr><td class="font-bold text-center">4</td><td class="font-bold text-lime-600 px-4">Baik</td><td>10% — 20%</td><td>Jarang absen, masih dalam batas toleransi tim wajar (3–6 kali absen).</td></tr>
+                                <tr><td class="font-bold text-center">3</td><td class="font-bold text-yellow-600 px-4">Cukup</td><td>21% — 35%</td><td>Beberapa kali tidak hadir, perkembangan terhambat (7–10 kali absen).</td></tr>
+                                <tr><td class="font-bold text-center">2</td><td class="font-bold text-orange-600 px-4">Buruk</td><td>36% — 55%</td><td>Sering absen latihan, kurang komitmen (11–16 kali absen).</td></tr>
+                                <tr><td class="font-bold text-center">1</td><td class="font-bold text-red-600 px-4">Sangat Buruk</td><td>> 55%</td><td>Sering mangkir, tidak memenuhi standar tim (> 17 kali absen).</td></tr>
                             </tbody>
                         </table>
                     </div>

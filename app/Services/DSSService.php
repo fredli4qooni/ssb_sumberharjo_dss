@@ -51,7 +51,7 @@ class DSSService
             $gapMental = $this->getGapWeight($assessment->mental_bertanding - $target->target_mental_bertanding);
             $nMental = $gapMental * $params->core_factor_pct;
 
-            $nCost = $assessment->ketidakhadiran;
+            $nCost = 6 - $assessment->ketidakhadiran;
 
             $pmResults[] = [
                 'assessment_id' => $assessment->id,
