@@ -32,19 +32,19 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Fisik (Benefit)</label>
-                            <input type="number" name="weight_physical" step="0.01" min="0" max="1" value="{{ old('weight_physical', $settings->weight_physical ?? 0.25) }}" class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
+                            <input type="number" name="weight_physical" step="0.01" min="0" max="1" value="{{ old('weight_physical', $settings->weight_physical ?? 0.27) }}" class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Teknis (Benefit)</label>
-                            <input type="number" name="weight_technical" step="0.01" min="0" max="1" value="{{ old('weight_technical', $settings->weight_technical ?? 0.30) }}" class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
+                            <input type="number" name="weight_technical" step="0.01" min="0" max="1" value="{{ old('weight_technical', $settings->weight_technical ?? 0.32) }}" class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Taktis (Benefit)</label>
-                            <input type="number" name="weight_tactical" step="0.01" min="0" max="1" value="{{ old('weight_tactical', $settings->weight_tactical ?? 0.20) }}" class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
+                            <input type="number" name="weight_tactical" step="0.01" min="0" max="1" value="{{ old('weight_tactical', $settings->weight_tactical ?? 0.18) }}" class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Mental (Benefit)</label>
-                            <input type="number" name="weight_mental" step="0.01" min="0" max="1" value="{{ old('weight_mental', $settings->weight_mental ?? 0.15) }}" class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
+                            <input type="number" name="weight_mental" step="0.01" min="0" max="1" value="{{ old('weight_mental', $settings->weight_mental ?? 0.13) }}" class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
                         </div>
                     </div>
                     <hr class="border-gray-100 my-2">

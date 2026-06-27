@@ -42,9 +42,11 @@ class DatabaseSeeder extends Seeder
         DB::table('dss_parameters')->insert([
             'core_factor_pct' => 0.60,
             'secondary_factor_pct' => 0.40,
-            'weight_physical' => 0.30,
-            'weight_technical' => 0.45,
-            'weight_tactical' => 0.25,
+            'weight_physical' => 0.27,
+            'weight_technical' => 0.32,
+            'weight_tactical' => 0.18,
+            'weight_mental' => 0.13,
+            'weight_ketidakhadiran' => 0.10,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
