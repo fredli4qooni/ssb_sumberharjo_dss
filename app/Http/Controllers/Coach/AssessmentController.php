@@ -77,6 +77,45 @@ class AssessmentController extends Controller
         return redirect()->route('pelatih.assessments.index')->with('success', 'Penilaian untuk ' . $player->name . ' berhasil disimpan.');
     }
 
+    public function edit(Assessment $assessment)
+    {
+        $player = $assessment->player;
+        $assessments = $player->assessments()->where('id', '!=', $assessment->id)->latest()->get();
+        return view('pelatih.assessments.edit', compact('assessment', 'player', 'assessments'));
+    }
+
+    public function update(Request $request, Assessment $assessment)
+    {
+        $validated = $request->validate([
+            'session_name' => 'required|string|max:255',
+            'speed' => 'required|integer|between:1,5',
+            'endurance' => 'required|integer|between:1,5',
+            'kelincahan' => 'required|integer|between:1,5',
+            'passing' => 'required|integer|between:1,5',
+            'controlling' => 'required|integer|between:1,5',
+            'dribbling' => 'required|integer|between:1,5',
+            'positioning' => 'required|integer|between:1,5',
+            'pemahaman_taktik' => 'required|integer|between:1,5',
+            'mental_bertanding' => 'required|integer|between:1,5',
+            'ketidakhadiran' => 'required|integer|between:1,5',
+            'coach_notes' => 'nullable|string',
+        ]);
+
+        $physical = round(($validated['speed'] + $validated['endurance'] + $validated['kelincahan']) / 3, 2);
+        $technical = round(($validated['passing'] + $validated['controlling'] + $validated['dribbling']) / 3, 2);
+        $tactical = round(($validated['positioning'] + $validated['pemahaman_taktik']) / 2, 2);
+        $mental = round($validated['mental_bertanding'], 2);
+
+        $assessment->update(array_merge($validated, [
+            'physical_score' => $physical,
+            'technical_score' => $technical,
+            'tactical_score' => $tactical,
+            'mental_score' => $mental,
+        ]));
+
+        return redirect()->route('pelatih.assessments.create', $assessment->player_id)->with('success', 'Data penilaian berhasil diperbarui.');
+    }
+
     public function destroy(Assessment $assessment)
     {
         $assessment->delete();

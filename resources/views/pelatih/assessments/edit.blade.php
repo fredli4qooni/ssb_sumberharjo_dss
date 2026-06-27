@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('header_title', 'Form Penilaian Pemain')
+@section('header_title', 'Edit Penilaian Pemain')
 
 @section('content')
 <div class="max-w-5xl mx-auto space-y-6">
@@ -17,13 +17,14 @@
         </div>
     </div>
 
-    <form action="{{ route('pelatih.assessments.store', $player->id) }}" method="POST">
+    <form action="{{ route('pelatih.assessments.update', $assessment->id) }}" method="POST">
         @csrf
+        @method('PUT')
         
         <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden mb-6">
             <div class="p-6 border-b border-gray-200 bg-gray-50/50">
                 <label class="block text-sm font-medium text-gray-700 mb-2">Nama Sesi Penilaian <span class="text-red-500">*</span></label>
-                <input type="text" name="session_name" required placeholder="Contoh: Seleksi Musim 2026" class="w-full md:w-1/2 px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-all">
+                <input type="text" name="session_name" required value="{{ old('session_name', $assessment->session_name) }}" placeholder="Contoh: Seleksi Musim 2026" class="w-full md:w-1/2 px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-all">
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-200 border-b border-gray-200">
@@ -39,9 +40,9 @@
                     <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                         <div class="flex justify-between mb-2">
                             <label class="text-sm font-medium text-gray-700">{{ $label }}</label>
-                            <span class="text-sm font-bold text-orange-600" id="{{ $field }}_val">3</span>
+                            <span class="text-sm font-bold text-orange-600" id="{{ $field }}_val">{{ old($field, $assessment->$field) }}</span>
                         </div>
-                        <input type="range" name="{{ $field }}" min="1" max="5" value="3" oninput="document.getElementById('{{ $field }}_val').innerText = this.value" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange-500">
+                        <input type="range" name="{{ $field }}" min="1" max="5" value="{{ old($field, $assessment->$field) }}" oninput="document.getElementById('{{ $field }}_val').innerText = this.value" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange-500">
                     </div>
                     @endforeach
                 </div>
@@ -57,9 +58,9 @@
                     <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                         <div class="flex justify-between mb-2">
                             <label class="text-sm font-medium text-gray-700">{{ $label }}</label>
-                            <span class="text-sm font-bold text-blue-600" id="{{ $field }}_val">3</span>
+                            <span class="text-sm font-bold text-blue-600" id="{{ $field }}_val">{{ old($field, $assessment->$field) }}</span>
                         </div>
-                        <input type="range" name="{{ $field }}" min="1" max="5" value="3" oninput="document.getElementById('{{ $field }}_val').innerText = this.value" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                        <input type="range" name="{{ $field }}" min="1" max="5" value="{{ old($field, $assessment->$field) }}" oninput="document.getElementById('{{ $field }}_val').innerText = this.value" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600">
                     </div>
                     @endforeach
                 </div>
@@ -75,9 +76,9 @@
                     <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                         <div class="flex justify-between mb-2">
                             <label class="text-sm font-medium text-gray-700">{{ $label }}</label>
-                            <span class="text-sm font-bold text-green-600" id="{{ $field }}_val">3</span>
+                            <span class="text-sm font-bold text-green-600" id="{{ $field }}_val">{{ old($field, $assessment->$field) }}</span>
                         </div>
-                        <input type="range" name="{{ $field }}" min="1" max="5" value="3" oninput="document.getElementById('{{ $field }}_val').innerText = this.value" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-green-600">
+                        <input type="range" name="{{ $field }}" min="1" max="5" value="{{ old($field, $assessment->$field) }}" oninput="document.getElementById('{{ $field }}_val').innerText = this.value" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-green-600">
                     </div>
                     @endforeach
                 </div>
@@ -94,9 +95,9 @@
                     <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                         <div class="flex justify-between mb-2">
                             <label class="text-sm font-medium text-gray-700">Mental Bertanding</label>
-                            <span class="text-sm font-bold text-purple-600" id="mental_bertanding_val">3</span>
+                            <span class="text-sm font-bold text-purple-600" id="mental_bertanding_val">{{ old("mental_bertanding", $assessment->mental_bertanding) }}</span>
                         </div>
-                        <input type="range" name="mental_bertanding" min="1" max="5" value="3" oninput="document.getElementById('mental_bertanding_val').innerText = this.value" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-purple-600">
+                        <input type="range" name="mental_bertanding" min="1" max="5" value="{{ old('mental_bertanding', $assessment->mental_bertanding) }}" oninput="document.getElementById('mental_bertanding_val').innerText = this.value" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-purple-600">
                     </div>
                 </div>
 
@@ -110,11 +111,11 @@
                     <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Ketidakhadiran (Skor 1-5)</label>
                         <select name="ketidakhadiran" required class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500 outline-none">
-                            <option value="5">5 - Sangat Baik (< 10% absen)</option>
-                            <option value="4">4 - Baik (10% - 20% absen)</option>
-                            <option value="3">3 - Cukup (21% - 35% absen)</option>
-                            <option value="2">2 - Buruk (36% - 55% absen)</option>
-                            <option value="1">1 - Sangat Buruk (> 55% absen)</option>
+                            <option value="5" {{ old('ketidakhadiran', $assessment->ketidakhadiran) == '5' ? 'selected' : '' }}>5 - Sangat Baik (< 10% absen)</option>
+                            <option value="4" {{ old('ketidakhadiran', $assessment->ketidakhadiran) == '4' ? 'selected' : '' }}>4 - Baik (10% - 20% absen)</option>
+                            <option value="3" {{ old('ketidakhadiran', $assessment->ketidakhadiran) == '3' ? 'selected' : '' }}>3 - Cukup (21% - 35% absen)</option>
+                            <option value="2" {{ old('ketidakhadiran', $assessment->ketidakhadiran) == '2' ? 'selected' : '' }}>2 - Buruk (36% - 55% absen)</option>
+                            <option value="1" {{ old('ketidakhadiran', $assessment->ketidakhadiran) == '1' ? 'selected' : '' }}>1 - Sangat Buruk (> 55% absen)</option>
                         </select>
                         <p class="text-xs text-gray-400 mt-2">Semakin tinggi skor, semakin rajin. Sistem otomatis membalik nilai ini menjadi hukuman (Cost) dalam perhitungan MOORA.</p>
                     </div>
@@ -123,58 +124,16 @@
 
             <div class="p-6 border-t border-gray-200 bg-gray-50/30">
                 <label class="block text-sm font-medium text-gray-700 mb-2">Catatan Tambahan (Opsional)</label>
-                <textarea name="coach_notes" rows="3" class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-all"></textarea>
+                <textarea name="coach_notes" rows="3" class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-all">{{ old('coach_notes', $assessment->coach_notes) }}</textarea>
             </div>
         </div>
 
         <div class="flex justify-end space-x-3">
             <a href="{{ route('pelatih.assessments.index') }}" class="px-5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">Batal</a>
-            <button type="submit" class="px-6 py-2.5 bg-orange-600 text-white rounded-lg text-sm font-semibold hover:bg-orange-700 focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors">Simpan Penilaian</button>
+            <button type="submit" class="px-6 py-2.5 bg-orange-600 text-white rounded-lg text-sm font-semibold hover:bg-orange-700 focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors">Update Penilaian</button>
         </div>
     </form>
 
-    @if($assessments->count() > 0)
-    <div class="mt-8 bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-        <div class="p-6 border-b border-gray-200 bg-gray-50/50">
-            <h3 class="text-base font-semibold text-gray-900">Riwayat Penilaian Pemain</h3>
-            <p class="text-sm text-gray-500 mt-1">Daftar penilaian yang sudah pernah dimasukkan untuk pemain ini.</p>
-        </div>
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sesi</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fisik</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Teknik</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Taktik</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mental</th>
-                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach($assessments as $assessment)
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $assessment->session_name }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $assessment->created_at->format('d M Y') }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $assessment->physical_score }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $assessment->technical_score }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $assessment->tactical_score }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $assessment->mental_score }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="{{ route('pelatih.assessments.edit', $assessment->id) }}" class="text-blue-600 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg transition-colors border border-blue-100 mr-2 inline-block">Edit</a>
-                            <form action="{{ route('pelatih.assessments.destroy', $assessment->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus penilaian ini? Data yang dihapus tidak dapat dikembalikan.');" class="inline-block">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-red-900 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg transition-colors border border-red-100">Hapus</button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
-    @endif
+    
 </div>
 @endsection

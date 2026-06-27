@@ -60,6 +60,7 @@
                         <th class="px-6 py-4 text-center">Mental</th>
                         <th class="px-6 py-4 text-center">Absen</th>
                         <th class="px-6 py-4">Catatan</th>
+                        <th class="px-6 py-4 text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-50">
@@ -73,6 +74,9 @@
                         <td class="px-6 py-4 text-center font-mono font-bold text-red-500">{{ $item->ketidakhadiran }}</td>
                         <td class="px-6 py-4 text-gray-500 italic max-w-xs truncate" title="{{ $item->coach_notes }}">
                             {{ $item->coach_notes ?? '-' }}
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            <a href="{{ route('pelatih.assessments.edit', $item->id) }}" class="text-blue-600 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 px-2 py-1 rounded text-[10px] font-bold transition-colors">Edit</a>
                         </td>
                     </tr>
                     @endforeach
