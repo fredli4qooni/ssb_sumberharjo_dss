@@ -307,7 +307,7 @@
                         <svg class="w-4 h-4 text-red-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         <span class="text-xs font-bold text-red-800 uppercase tracking-wide">Ketidakhadiran (Kriteria Cost)</span>
                     </div>
-                    <div id="modalPlayerCost" class="text-sm font-black font-mono text-red-600 bg-white px-2.5 py-0.5 rounded-md border border-red-200">0 Hari/Sesi</div>
+                    <div id="modalPlayerCost" class="text-sm font-black font-mono text-red-600 bg-white px-2.5 py-0.5 rounded-md border border-red-200">Skor Cost: 0</div>
                 </div>
             </div>
         </div>
@@ -354,7 +354,7 @@
         document.getElementById('modalPlayerAge').innerText = "Kelompok Usia: " + age;
         document.getElementById('modalPlayerPos').innerText = pos;
         document.getElementById('modalPlayerScore').innerText = score;
-        document.getElementById('modalPlayerCost').innerText = cost + " Hari/Sesi";
+        document.getElementById('modalPlayerCost').innerText = "Skor Cost: " + cost;
 
         document.getElementById('txt-fisik').innerText = fisik.toFixed(2);
         document.getElementById('txt-teknik').innerText = teknik.toFixed(2);
