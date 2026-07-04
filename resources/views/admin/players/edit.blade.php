@@ -76,7 +76,7 @@
                         </div>
                     @endif
                     <input type="file" name="photo" accept="image/*" class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all">
-                    <p class="text-xs text-gray-500 mt-1">Biarkan kosong jika tidak ingin mengubah. Format: JPG, PNG. Maks: 2MB.</p>
+                    <p class="text-xs text-gray-500 mt-1">Biarkan kosong jika tidak ingin mengubah. Format: JPG, PNG. Maks: 5MB.</p>
                 </div>
             </div>
 

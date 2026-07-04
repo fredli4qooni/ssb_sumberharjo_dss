@@ -20,7 +20,7 @@ class SettingController extends Controller
         $request->validate([
             'app_name' => 'required|string|max:255',
             'theme_color' => 'required|in:orange,blue,green,red',
-            'app_logo' => 'nullable|image|max:2048',
+            'app_logo' => 'nullable|image|max:5120',
         ]);
 
         $setting = Setting::first() ?? new Setting();

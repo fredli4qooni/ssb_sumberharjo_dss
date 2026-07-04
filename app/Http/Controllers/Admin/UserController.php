@@ -36,7 +36,7 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'license_type' => 'required|string',
             'password' => 'required|string|min:8',
-            'photo' => 'nullable|image|max:2048',
+            'photo' => 'nullable|image|max:5120',
         ]);
 
         $userData = [
@@ -69,7 +69,7 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'license_type' => 'required|string',
             'status' => 'required|in:aktif,nonaktif',
-            'photo' => 'nullable|image|max:2048',
+            'photo' => 'nullable|image|max:5120',
         ]);
 
         if ($request->filled('password')) {

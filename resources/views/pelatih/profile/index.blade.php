@@ -28,7 +28,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Foto Profil (Opsional)</label>
                             <input type="file" name="photo" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100">
-                            <p class="text-xs text-gray-400 mt-1">Format: JPG, PNG. Maks: 2MB.</p>
+                            <p class="text-xs text-gray-400 mt-1">Format: JPG, PNG. Maks: 5MB.</p>
                         </div>
                     </div>
 

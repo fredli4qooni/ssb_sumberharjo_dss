@@ -30,7 +30,7 @@ class PlayerController extends Controller
             'position' => 'required|string',
             'age_group' => 'required|string',
             'joined_season' => 'required|integer',
-            'photo' => 'nullable|image|max:2048',
+            'photo' => 'nullable|image|max:5120',
         ]);
 
         if ($request->hasFile('photo')) {
@@ -58,7 +58,7 @@ class PlayerController extends Controller
             'position' => 'required|string',
             'age_group' => 'required|string',
             'joined_season' => 'required|integer',
-            'photo' => 'nullable|image|max:2048',
+            'photo' => 'nullable|image|max:5120',
         ]);
 
         if ($request->hasFile('photo')) {
