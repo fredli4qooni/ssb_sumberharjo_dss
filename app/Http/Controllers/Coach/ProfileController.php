@@ -23,11 +23,19 @@ class ProfileController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'photo' => 'nullable|image|max:2048',
         ]);
 
         $user->name = $request->name;
         $user->email = $request->email;
         
+        if ($request->hasFile('photo')) {
+            if ($user->photo) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($user->photo);
+            }
+            $user->photo = $request->file('photo')->store('users', 'public');
+        }
+
         if ($request->filled('password')) {
             $request->validate([
                 'password' => ['confirmed', Password::defaults()],

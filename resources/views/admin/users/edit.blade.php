@@ -29,7 +29,7 @@
             <p class="text-sm text-gray-500 mt-1">Perbarui detail akun dan hak akses staf pelatih.</p>
         </div>
         
-        <form action="{{ route('admin.users.update', $user->id) }}" method="POST" class="px-6 py-6 space-y-6">
+        <form action="{{ route('admin.users.update', $user->id) }}" method="POST" enctype="multipart/form-data" class="px-6 py-6 space-y-6">
             @csrf
             @method('PUT')
             
@@ -60,6 +60,17 @@
                         <option value="aktif" {{ old('status', $user->status) == 'aktif' ? 'selected' : '' }}>Aktif (Bisa Login)</option>
                         <option value="nonaktif" {{ old('status', $user->status) == 'nonaktif' ? 'selected' : '' }}>Nonaktif (Ditangguhkan)</option>
                     </select>
+                </div>
+
+                <div class="md:col-span-2 mt-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Foto Profil (Opsional)</label>
+                    @if($user->photo)
+                        <div class="mb-3">
+                            <img src="{{ Storage::url($user->photo) }}" alt="Foto {{ $user->name }}" class="h-16 w-16 object-cover rounded-lg border border-gray-200">
+                        </div>
+                    @endif
+                    <input type="file" name="photo" accept="image/*" class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all">
+                    <p class="text-xs text-gray-500 mt-1">Biarkan kosong jika tidak ingin mengubah. Format: JPG, PNG. Maks: 2MB.</p>
                 </div>
 
                 <div class="md:col-span-2 mt-2 p-5 bg-gray-50 border border-gray-200 rounded-lg">

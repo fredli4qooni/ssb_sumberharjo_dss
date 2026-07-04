@@ -12,11 +12,26 @@
             </h3>
         </div>
         <div class="p-6">
-            <form action="{{ route('pelatih.profile.update') }}" method="POST">
+            <form action="{{ route('pelatih.profile.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 
                 <div class="space-y-4">
+                    <div class="flex items-center space-x-6 mb-6">
+                        <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center font-bold text-2xl text-orange-700 border border-orange-200 overflow-hidden">
+                            @if($user->photo)
+                                <img src="{{ Storage::url($user->photo) }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
+                            @else
+                                {{ substr($user->name, 0, 1) }}
+                            @endif
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Foto Profil (Opsional)</label>
+                            <input type="file" name="photo" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100">
+                            <p class="text-xs text-gray-400 mt-1">Format: JPG, PNG. Maks: 2MB.</p>
+                        </div>
+                    </div>
+
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
                         <input type="text" name="name" value="{{ old('name', $user->name) }}" required class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">

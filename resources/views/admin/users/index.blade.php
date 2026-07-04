@@ -63,7 +63,11 @@
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0 h-10 w-10">
-                                    <img class="h-10 w-10 rounded-full border border-gray-200" src="https://ui-avatars.com/api/?name={{ urlencode($coach->name) }}&background=EBF8FF&color=2B6CB0" alt="">
+                                    @if($coach->photo)
+                                        <img class="h-10 w-10 rounded-full border border-gray-200 object-cover" src="{{ Storage::url($coach->photo) }}" alt="{{ $coach->name }}">
+                                    @else
+                                        <img class="h-10 w-10 rounded-full border border-gray-200" src="https://ui-avatars.com/api/?name={{ urlencode($coach->name) }}&background=EBF8FF&color=2B6CB0" alt="{{ $coach->name }}">
+                                    @endif
                                 </div>
                                 <div class="ml-4">
                                     <div class="text-sm font-medium text-gray-900">{{ $coach->name }}</div>

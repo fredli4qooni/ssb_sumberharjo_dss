@@ -72,8 +72,12 @@
 
     <div class="border-t border-gray-100 p-4">
         <div class="flex items-center mb-4">
-            <div class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-sm font-bold text-gray-700 border border-gray-200">
-                {{ substr(Auth::user()->name, 0, 1) }}
+            <div class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-sm font-bold text-gray-700 border border-gray-200 overflow-hidden">
+                @if(Auth::user()->photo)
+                    <img src="{{ Storage::url(Auth::user()->photo) }}" alt="{{ Auth::user()->name }}" class="w-full h-full object-cover">
+                @else
+                    {{ substr(Auth::user()->name, 0, 1) }}
+                @endif
             </div>
             <div class="ml-3 overflow-hidden">
                 <p class="text-sm font-semibold text-gray-900 truncate">{{ Auth::user()->name }}</p>

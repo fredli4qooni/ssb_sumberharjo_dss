@@ -36,16 +36,23 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'license_type' => 'required|string',
             'password' => 'required|string|min:8',
+            'photo' => 'nullable|image|max:2048',
         ]);
 
-        User::create([
+        $userData = [
             'name' => $validated['name'],
             'email' => $validated['email'],
             'role' => 'pelatih', // Otomatis set sebagai pelatih
             'license_type' => $validated['license_type'],
             'password' => Hash::make($validated['password']),
             'status' => 'aktif',
-        ]);
+        ];
+
+        if ($request->hasFile('photo')) {
+            $userData['photo'] = $request->file('photo')->store('users', 'public');
+        }
+
+        User::create($userData);
 
         return redirect()->route('admin.users.index')->with('success', 'Akun pelatih berhasil ditambahkan.');
     }
@@ -62,10 +69,18 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'license_type' => 'required|string',
             'status' => 'required|in:aktif,nonaktif',
+            'photo' => 'nullable|image|max:2048',
         ]);
 
         if ($request->filled('password')) {
             $validated['password'] = Hash::make($request->password);
+        }
+
+        if ($request->hasFile('photo')) {
+            if ($user->photo) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($user->photo);
+            }
+            $validated['photo'] = $request->file('photo')->store('users', 'public');
         }
 
         $user->update($validated);
@@ -75,6 +90,9 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        if ($user->photo) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($user->photo);
+        }
         $user->delete();
         return redirect()->route('admin.users.index')->with('success', 'Akun pelatih berhasil dihapus.');
     }

@@ -10,7 +10,7 @@
             <p class="text-sm text-gray-500 mt-1">Buat akun baru untuk memberikan akses sistem ke staf pelatih.</p>
         </div>
         
-        <form action="{{ route('admin.users.store') }}" method="POST" class="px-6 py-6 space-y-6">
+        <form action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data" class="px-6 py-6 space-y-6">
             @csrf
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -38,6 +38,12 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Kata Sandi Sementara</label>
                     <input type="password" name="password" required class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all" placeholder="Minimal 8 karakter">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Foto Profil (Opsional)</label>
+                    <input type="file" name="photo" accept="image/*" class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all">
+                    <p class="text-xs text-gray-500 mt-1">Format: JPG, PNG. Maks: 2MB.</p>
                 </div>
             </div>
 
