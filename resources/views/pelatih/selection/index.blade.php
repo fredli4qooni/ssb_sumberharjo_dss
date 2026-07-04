@@ -130,7 +130,7 @@
     @endif
 
     @if($mode === 'starting_xi' && request()->has('session_name') && request()->has('formation'))
-        <div class="relative bg-emerald-800 rounded-3xl border-4 border-white shadow-2xl overflow-hidden aspect-[3/4] md:aspect-[4/3] max-w-4xl mx-auto">
+        <div id="tactical-field" class="relative bg-emerald-800 rounded-3xl border-4 border-white shadow-2xl overflow-hidden aspect-[3/4] md:aspect-[4/3] max-w-4xl mx-auto">
             
             <div class="absolute inset-0 flex flex-col pointer-events-none">
                 @for ($i = 0; $i < 10; $i++)
@@ -148,7 +148,7 @@
                     <h3 class="text-xs font-bold uppercase tracking-widest text-orange-400">Rekomendasi Utama Starting XI</h3>
                     <p class="text-[11px] text-gray-300 mt-0.5">Sesi: {{ $selectedSession }}</p>
                 </div>
-                <div class="px-4 py-1.5 bg-orange-600 text-white rounded-xl font-black text-base shadow-lg border border-orange-500">
+                <div id="dynamic-formation" class="px-4 py-1.5 bg-orange-600 text-white rounded-xl font-black text-base shadow-lg border border-orange-500 transition-all duration-300">
                     {{ $selectedFormation }}
                 </div>
             </div>
@@ -378,10 +378,63 @@
                 player.style.zIndex = "10";
                 player.classList.add('transition-transform');
                 
-                setTimeout(() => { isDraggingGlobal = false; }, 50);
+                setTimeout(() => { 
+                    isDraggingGlobal = false; 
+                    if (isDragging) {
+                        calculateFormation();
+                    }
+                }, 50);
             }
         });
     });
+
+    function calculateFormation() {
+        const field = document.getElementById('tactical-field');
+        if (!field) return;
+        const fieldHeight = field.getBoundingClientRect().height;
+        const threshold = fieldHeight * 0.08;
+
+        const players = document.querySelectorAll('.draggable-player');
+        const yCoords = [];
+
+        players.forEach(p => {
+            if (p.getAttribute('data-pos') === 'Goalkeeper') return;
+            const rect = p.getBoundingClientRect();
+            yCoords.push(rect.top + rect.height/2);
+        });
+
+        if (yCoords.length === 0) return;
+
+        yCoords.sort((a, b) => b - a);
+
+        let lines = [];
+        let currentLineCount = 1;
+        let lastY = yCoords[0];
+
+        for (let i = 1; i < yCoords.length; i++) {
+            if (lastY - yCoords[i] > threshold) {
+                lines.push(currentLineCount);
+                currentLineCount = 1;
+            } else {
+                currentLineCount++;
+            }
+            lastY = yCoords[i];
+        }
+        lines.push(currentLineCount);
+
+        const formationText = lines.join('-');
+
+        const formationDiv = document.getElementById('dynamic-formation');
+        if (formationDiv) {
+            formationDiv.innerText = formationText + ' (Custom)';
+            formationDiv.classList.add('scale-110', 'bg-red-600', 'border-red-500');
+            formationDiv.classList.remove('bg-orange-600', 'border-orange-500');
+            
+            setTimeout(() => {
+                formationDiv.classList.remove('scale-110');
+            }, 300);
+        }
+    }
 
     function switchMode(mode) {
         const activeClass = "w-1/2 py-3 px-4 rounded-xl text-center font-bold text-sm bg-orange-600 text-white shadow-md flex items-center justify-center gap-2 transition-all duration-200";
