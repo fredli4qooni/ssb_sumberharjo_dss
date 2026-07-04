@@ -49,6 +49,9 @@ Route::middleware(['auth', 'role:pelatih'])->prefix('pelatih')->name('pelatih.')
     Route::get('/analytics/{player}', [AnalyticsController::class, 'show'])->name('analytics.show');
     Route::get('/analytics/{player}/pdf', [AnalyticsController::class, 'downloadPdf'])->name('analytics.pdf');
     Route::get('/panduan-penilaian', [\App\Http\Controllers\GuidelineController::class, 'index'])->name('guidelines.index');
+    
+    Route::get('/profile', [\App\Http\Controllers\Coach\ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile', [\App\Http\Controllers\Coach\ProfileController::class, 'update'])->name('profile.update');
 });
 
 Route::post('/notifications/mark-all-read', function (\Illuminate\Http\Request $request) {
