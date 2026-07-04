@@ -100,6 +100,7 @@ class DSSService
             $finalResults[] = [
                 'player_id' => $res['player']->id,
                 'player_name' => $res['player']->name,
+                'photo' => $res['player']->photo ?? null,
                 'age_group' => $res['player']->age_group,
                 'score' => round($y, 4),
                 'stats' => [

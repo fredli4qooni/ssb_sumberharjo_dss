@@ -209,9 +209,13 @@
                                     class="flex flex-col items-center group cursor-pointer outline-none transition-transform {{ $yTweak }}">
                                     
                                     <div class="relative w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-b {{ $colorTheme[$pos] }} border-2 shadow-xl flex items-center justify-center text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                                        <svg class="w-8 h-8 opacity-80" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                                        </svg>
+                                        @if(isset($player['photo']) && $player['photo'])
+                                            <img src="{{ Storage::url($player['photo']) }}" alt="{{ $player['player_name'] }}" class="w-full h-full object-cover rounded-full">
+                                        @else
+                                            <svg class="w-8 h-8 opacity-80" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                            </svg>
+                                        @endif
                                         <span class="absolute -top-1 -right-1 w-5 h-5 bg-white text-gray-900 rounded-full font-black text-[10px] flex items-center justify-center border border-gray-300 shadow">
                                             {{ $index + 1 }}
                                         </span>
