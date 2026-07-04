@@ -1,11 +1,15 @@
 <div class="h-full bg-white border-r border-gray-200 w-64 fixed top-0 left-0 z-20 flex flex-col transition-transform duration-300">
     <div class="h-16 flex items-center px-6 border-b border-gray-100">
-        <div class="w-8 h-8 bg-orange-600 rounded-lg flex items-center justify-center text-white mr-3 shadow-sm">
-            <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
-                <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zM144.5 125l52.1 63.6-28.7 78.9-80.9 14.8c-10.7-31.9-10.4-66.2 1.4-98 11.2-30.5 30.6-57.5 56.1-79.3zm199 142.5l-28.7-78.9 52.1-63.6c25.5 21.8 44.9 48.8 56.1 79.3 11.8 31.8 12.1 66.1 1.4 98l-80.9-14.8zm-155.1 48l67.6 22 17.5 82.2-41.5 61.4c-35-11.4-66.6-31.7-91.8-59.2l48.2-106.4zm135.2 0l48.2 106.4c-25.2 27.5-56.8 47.8-91.8 59.2l-41.5-61.4 17.5-82.2 67.6-22zm-67.6-146.4l28.7 78.9H220.8l28.7-78.9 6.5-117.8c16.3-1 32.7-1 49 0l-6.5 117.8z"/>
-            </svg>
-        </div>
-        <span class="text-lg font-bold text-gray-900 tracking-tight">DSS<span class="text-orange-600">Sumberharjo</span></span>
+        @if($app_settings->app_logo)
+            <img src="{{ Storage::url($app_settings->app_logo) }}" alt="Logo" class="h-8 object-contain mr-3">
+        @else
+            <div class="w-8 h-8 bg-orange-600 rounded-lg flex items-center justify-center text-white mr-3 shadow-sm">
+                <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+                    <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zM144.5 125l52.1 63.6-28.7 78.9-80.9 14.8c-10.7-31.9-10.4-66.2 1.4-98 11.2-30.5 30.6-57.5 56.1-79.3zm199 142.5l-28.7-78.9 52.1-63.6c25.5 21.8 44.9 48.8 56.1 79.3 11.8 31.8 12.1 66.1 1.4 98l-80.9-14.8zm-155.1 48l67.6 22 17.5 82.2-41.5 61.4c-35-11.4-66.6-31.7-91.8-59.2l48.2-106.4zm135.2 0l48.2 106.4c-25.2 27.5-56.8 47.8-91.8 59.2l-41.5-61.4 17.5-82.2 67.6-22zm-67.6-146.4l28.7 78.9H220.8l28.7-78.9 6.5-117.8c16.3-1 32.7-1 49 0l-6.5 117.8z"/>
+                </svg>
+            </div>
+        @endif
+        <span class="text-sm font-bold text-gray-900 tracking-tight truncate">{{ $app_settings->app_name }}</span>
     </div>
 
     <div class="flex-1 overflow-y-auto py-6 px-4 space-y-1 relative">
@@ -33,8 +37,13 @@
             </a>
 
             <a href="{{ route('admin.guidelines.index') }}" class="flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-colors group {{ request()->routeIs('admin.guidelines.index') ? 'bg-orange-50 text-orange-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
-                <svg class="w-5 h-5 mr-3 {{ request()->routeIs('admin.guidelines.index') ? 'text-orange-600' : 'text-gray-400 group-hover:text-gray-500' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                <svg class="w-5 h-5 mr-3 {{ request()->routeIs('admin.guidelines.index') ? 'text-orange-600' : 'text-gray-400 group-hover:text-gray-500' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                 Panduan Penilaian
+            </a>
+
+            <a href="{{ route('admin.settings.index') }}" class="flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-colors group {{ request()->routeIs('admin.settings.*') ? 'bg-orange-50 text-orange-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
+                <svg class="w-5 h-5 mr-3 {{ request()->routeIs('admin.settings.*') ? 'text-orange-600' : 'text-gray-400 group-hover:text-gray-500' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                Pengaturan
             </a>
         @endif
 

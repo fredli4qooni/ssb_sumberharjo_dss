@@ -15,15 +15,19 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 flex items-center justify-center min-h-screen p-4 sm:p-8">
+<body class="bg-gray-50 flex items-center justify-center min-h-screen p-4 sm:p-8 theme-{{ $app_settings->theme_color ?? 'orange' }}">
 
     <div class="flex w-full max-w-5xl bg-white rounded-2xl shadow-xl overflow-hidden min-h-[600px]">
         
         <div class="w-full lg:w-1/2 flex flex-col p-8 sm:p-12 lg:p-16 justify-center relative">
             
             <div class="lg:hidden flex items-center mb-8">
-                <div class="w-8 h-8 bg-orange-600 rounded-lg flex items-center justify-center font-bold text-white text-xl mr-3 shadow-sm">S</div>
-                <span class="text-lg font-bold text-gray-900 tracking-tight">DSS<span class="text-orange-600">Sumberharjo</span></span>
+                @if(isset($app_settings) && $app_settings->app_logo)
+                    <img src="{{ Storage::url($app_settings->app_logo) }}" alt="Logo" class="h-8 object-contain mr-3">
+                @else
+                    <div class="w-8 h-8 bg-orange-600 rounded-lg flex items-center justify-center font-bold text-white text-xl mr-3 shadow-sm">S</div>
+                @endif
+                <span class="text-lg font-bold text-gray-900 tracking-tight">{{ $app_settings->app_name ?? 'DSS Sumberharjo' }}</span>
             </div>
 
             <div class="max-w-md w-full mx-auto space-y-8">
@@ -89,12 +93,12 @@
             </div>
         </div>
 
-        <div class="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-orange-700 to-red-900 relative items-center justify-center p-12 overflow-hidden">
+        <div class="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-orange-600 to-orange-900 relative items-center justify-center p-12 overflow-hidden">
             
             <div class="absolute inset-0 bg-pattern opacity-30"></div>
             
-            <div class="absolute -top-24 -right-24 w-96 h-96 bg-orange-500 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
-            <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-red-500 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+            <div class="absolute -top-24 -right-24 w-96 h-96 bg-orange-400 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+            <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-orange-500 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
 
             <div class="relative z-10 text-center">
                 <div class="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 mb-8 shadow-2xl">

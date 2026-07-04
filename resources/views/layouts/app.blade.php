@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Seleksi Pemain - SSB Sumberharjo</title>
+    <title>{{ $app_settings->app_name }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -17,7 +17,7 @@
     </style>
 </head>
 
-<body class="text-gray-800">
+<body class="text-gray-800 theme-{{ $app_settings->theme_color ?? 'orange' }}">
 
     <div class="min-h-screen flex">
 

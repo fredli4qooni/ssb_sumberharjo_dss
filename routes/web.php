@@ -25,6 +25,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::put('/dss-settings/profile/{id}', [DssController::class, 'updateProfile'])->name('dss.profile.update');
 
     Route::get('/panduan-penilaian', [\App\Http\Controllers\GuidelineController::class, 'index'])->name('guidelines.index');
+
+    Route::get('/settings', [\App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
+    Route::put('/settings', [\App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');
 });
 
 Route::middleware(['auth', 'role:super_admin'])->prefix('superadmin')->name('superadmin.')->group(function () {

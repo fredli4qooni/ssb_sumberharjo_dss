@@ -16,7 +16,7 @@
 <body>
     <div class="header">
         <h2>LAPORAN PERFORMA ATLET</h2>
-        <p>SSB SUMBERHARJO - SISTEM PENDUKUNG KEPUTUSAN</p>
+        <p>{{ isset($app_settings) ? strtoupper($app_settings->app_name) : 'SSB SUMBERHARJO' }} - SISTEM PENDUKUNG KEPUTUSAN</p>
     </div>
 
     <div class="player-info">
