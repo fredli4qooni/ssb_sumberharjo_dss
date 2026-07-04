@@ -130,7 +130,7 @@
     @endif
 
     @if($mode === 'starting_xi' && request()->has('session_name') && request()->has('formation'))
-        <div id="tactical-field" class="relative bg-emerald-800 rounded-3xl border-4 border-white shadow-2xl overflow-hidden aspect-[3/4] md:aspect-[4/3] max-w-4xl mx-auto">
+        <div class="relative bg-emerald-800 rounded-3xl border-4 border-white shadow-2xl overflow-hidden aspect-[3/4] md:aspect-[4/3] max-w-4xl mx-auto">
             
             <div class="absolute inset-0 flex flex-col pointer-events-none">
                 @for ($i = 0; $i < 10; $i++)
@@ -148,7 +148,7 @@
                     <h3 class="text-xs font-bold uppercase tracking-widest text-orange-400">Rekomendasi Utama Starting XI</h3>
                     <p class="text-[11px] text-gray-300 mt-0.5">Sesi: {{ $selectedSession }}</p>
                 </div>
-                <div id="dynamic-formation" class="px-4 py-1.5 bg-orange-600 text-white rounded-xl font-black text-base shadow-lg border border-orange-500 transition-all duration-300">
+                <div class="px-4 py-1.5 bg-orange-600 text-white rounded-xl font-black text-base shadow-lg border border-orange-500">
                     {{ $selectedFormation }}
                 </div>
             </div>
@@ -206,7 +206,7 @@
                                     data-taktik="{{ $player['stats']['taktik'] }}"
                                     data-mental="{{ $player['stats']['mental'] }}"
                                     data-cost="{{ $player['stats']['cost'] }}"
-                                    class="draggable-player flex flex-col items-center group cursor-pointer outline-none transition-transform {{ $yTweak }}" style="position: relative; z-index: 10;">
+                                    class="flex flex-col items-center group cursor-pointer outline-none transition-transform {{ $yTweak }}">
                                     
                                     <div class="relative w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-b {{ $colorTheme[$pos] }} border-2 shadow-xl flex items-center justify-center text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                                         @if(isset($player['photo']) && $player['photo'])
@@ -319,123 +319,6 @@
 </div>
 
 <script>
-    let isDraggingGlobal = false;
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const players = document.querySelectorAll('.draggable-player');
-        
-        players.forEach(player => {
-            let isDragging = false;
-            let startPosX = 0, startPosY = 0;
-            let currentX = 0, currentY = 0;
-
-            player.addEventListener('mousedown', dragStart);
-            player.addEventListener('touchstart', dragStart, {passive: false});
-
-            function dragStart(e) {
-                if (e.type === 'mousedown' && e.button !== 0) return;
-                
-                isDragging = false;
-                
-                if (e.type === 'touchstart') {
-                    startPosX = e.touches[0].clientX - currentX;
-                    startPosY = e.touches[0].clientY - currentY;
-                } else {
-                    startPosX = e.clientX - currentX;
-                    startPosY = e.clientY - currentY;
-                }
-
-                player.classList.remove('transition-transform');
-                
-                document.addEventListener('mousemove', drag);
-                document.addEventListener('touchmove', drag, {passive: false});
-                document.addEventListener('mouseup', dragEnd);
-                document.addEventListener('touchend', dragEnd);
-            }
-
-            function drag(e) {
-                isDragging = true;
-                isDraggingGlobal = true;
-                if (e.cancelable) e.preventDefault();
-
-                let clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
-                let clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
-
-                currentX = clientX - startPosX;
-                currentY = clientY - startPosY;
-
-                player.style.transform = `translate(${currentX}px, ${currentY}px) scale(1.1)`;
-                player.style.zIndex = "50";
-            }
-
-            function dragEnd(e) {
-                document.removeEventListener('mousemove', drag);
-                document.removeEventListener('touchmove', drag);
-                document.removeEventListener('mouseup', dragEnd);
-                document.removeEventListener('touchend', dragEnd);
-                
-                player.style.transform = `translate(${currentX}px, ${currentY}px) scale(1)`;
-                player.style.zIndex = "10";
-                player.classList.add('transition-transform');
-                
-                setTimeout(() => { 
-                    isDraggingGlobal = false; 
-                    if (isDragging) {
-                        calculateFormation();
-                    }
-                }, 50);
-            }
-        });
-    });
-
-    function calculateFormation() {
-        const field = document.getElementById('tactical-field');
-        if (!field) return;
-        const fieldHeight = field.getBoundingClientRect().height;
-        const threshold = fieldHeight * 0.08;
-
-        const players = document.querySelectorAll('.draggable-player');
-        const yCoords = [];
-
-        players.forEach(p => {
-            if (p.getAttribute('data-pos') === 'Goalkeeper') return;
-            const rect = p.getBoundingClientRect();
-            yCoords.push(rect.top + rect.height/2);
-        });
-
-        if (yCoords.length === 0) return;
-
-        yCoords.sort((a, b) => b - a);
-
-        let lines = [];
-        let currentLineCount = 1;
-        let lastY = yCoords[0];
-
-        for (let i = 1; i < yCoords.length; i++) {
-            if (lastY - yCoords[i] > threshold) {
-                lines.push(currentLineCount);
-                currentLineCount = 1;
-            } else {
-                currentLineCount++;
-            }
-            lastY = yCoords[i];
-        }
-        lines.push(currentLineCount);
-
-        const formationText = lines.join('-');
-
-        const formationDiv = document.getElementById('dynamic-formation');
-        if (formationDiv) {
-            formationDiv.innerText = formationText + ' (Custom)';
-            formationDiv.classList.add('scale-110', 'bg-red-600', 'border-red-500');
-            formationDiv.classList.remove('bg-orange-600', 'border-orange-500');
-            
-            setTimeout(() => {
-                formationDiv.classList.remove('scale-110');
-            }, 300);
-        }
-    }
-
     function switchMode(mode) {
         const activeClass = "w-1/2 py-3 px-4 rounded-xl text-center font-bold text-sm bg-orange-600 text-white shadow-md flex items-center justify-center gap-2 transition-all duration-200";
         const inactiveClass = "w-1/2 py-3 px-4 rounded-xl text-center font-bold text-sm text-gray-500 hover:text-gray-700 hover:bg-gray-100 flex items-center justify-center gap-2 transition-all duration-200";
@@ -459,7 +342,6 @@
     }
 
     function openPlayerModal(button) {
-        if (isDraggingGlobal) return;
         const modal = document.getElementById('playerDetailModal');
         
         const name = button.getAttribute('data-name');
