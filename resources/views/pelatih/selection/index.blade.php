@@ -206,7 +206,7 @@
                                     data-taktik="{{ $player['stats']['taktik'] }}"
                                     data-mental="{{ $player['stats']['mental'] }}"
                                     data-cost="{{ $player['stats']['cost'] }}"
-                                    class="flex flex-col items-center group cursor-pointer outline-none transition-transform {{ $yTweak }}">
+                                    class="draggable-player flex flex-col items-center group cursor-pointer outline-none transition-transform {{ $yTweak }}" style="position: relative; z-index: 10;">
                                     
                                     <div class="relative w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-b {{ $colorTheme[$pos] }} border-2 shadow-xl flex items-center justify-center text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                                         @if(isset($player['photo']) && $player['photo'])
@@ -319,6 +319,70 @@
 </div>
 
 <script>
+    let isDraggingGlobal = false;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const players = document.querySelectorAll('.draggable-player');
+        
+        players.forEach(player => {
+            let isDragging = false;
+            let startPosX = 0, startPosY = 0;
+            let currentX = 0, currentY = 0;
+
+            player.addEventListener('mousedown', dragStart);
+            player.addEventListener('touchstart', dragStart, {passive: false});
+
+            function dragStart(e) {
+                if (e.type === 'mousedown' && e.button !== 0) return;
+                
+                isDragging = false;
+                
+                if (e.type === 'touchstart') {
+                    startPosX = e.touches[0].clientX - currentX;
+                    startPosY = e.touches[0].clientY - currentY;
+                } else {
+                    startPosX = e.clientX - currentX;
+                    startPosY = e.clientY - currentY;
+                }
+
+                player.classList.remove('transition-transform');
+                
+                document.addEventListener('mousemove', drag);
+                document.addEventListener('touchmove', drag, {passive: false});
+                document.addEventListener('mouseup', dragEnd);
+                document.addEventListener('touchend', dragEnd);
+            }
+
+            function drag(e) {
+                isDragging = true;
+                isDraggingGlobal = true;
+                if (e.cancelable) e.preventDefault();
+
+                let clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+                let clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+
+                currentX = clientX - startPosX;
+                currentY = clientY - startPosY;
+
+                player.style.transform = `translate(${currentX}px, ${currentY}px) scale(1.1)`;
+                player.style.zIndex = "50";
+            }
+
+            function dragEnd(e) {
+                document.removeEventListener('mousemove', drag);
+                document.removeEventListener('touchmove', drag);
+                document.removeEventListener('mouseup', dragEnd);
+                document.removeEventListener('touchend', dragEnd);
+                
+                player.style.transform = `translate(${currentX}px, ${currentY}px) scale(1)`;
+                player.style.zIndex = "10";
+                player.classList.add('transition-transform');
+                
+                setTimeout(() => { isDraggingGlobal = false; }, 50);
+            }
+        });
+    });
+
     function switchMode(mode) {
         const activeClass = "w-1/2 py-3 px-4 rounded-xl text-center font-bold text-sm bg-orange-600 text-white shadow-md flex items-center justify-center gap-2 transition-all duration-200";
         const inactiveClass = "w-1/2 py-3 px-4 rounded-xl text-center font-bold text-sm text-gray-500 hover:text-gray-700 hover:bg-gray-100 flex items-center justify-center gap-2 transition-all duration-200";
@@ -342,6 +406,7 @@
     }
 
     function openPlayerModal(button) {
+        if (isDraggingGlobal) return;
         const modal = document.getElementById('playerDetailModal');
         
         const name = button.getAttribute('data-name');
