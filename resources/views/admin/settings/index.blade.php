@@ -70,12 +70,12 @@
                 <p class="text-sm text-gray-500 mb-3">Pilih tema warna dominan untuk aplikasi ini.</p>
                 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <!-- Tema Oranye -->
+                    <!-- Tema Oranye/Emas -->
                     <label class="relative cursor-pointer">
                         <input type="radio" name="theme_color" value="orange" class="peer sr-only" {{ old('theme_color', $setting->theme_color) == 'orange' ? 'checked' : '' }}>
                         <div class="p-4 rounded-xl border-2 border-gray-200 hover:border-gray-300 peer-checked:border-orange-500 peer-checked:bg-orange-50 transition-all text-center">
                             <div class="w-8 h-8 mx-auto rounded-full bg-orange-500 mb-2 shadow-sm"></div>
-                            <span class="text-sm font-semibold text-gray-700 peer-checked:text-orange-700">Oranye (Default)</span>
+                            <span class="text-sm font-semibold text-gray-700 peer-checked:text-orange-700">Emas (Default)</span>
                         </div>
                     </label>
 

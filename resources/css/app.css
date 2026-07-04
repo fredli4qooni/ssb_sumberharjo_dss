@@ -3,19 +3,19 @@
 @tailwind utilities;
 
 @layer base {
-  /* Default Orange Theme */
+  /* Default Gold Theme (Replacing Orange) */
   :root, .theme-orange {
-    --theme-50: #fff7ed;
-    --theme-100: #ffedd5;
-    --theme-200: #fed7aa;
-    --theme-300: #fdba74;
-    --theme-400: #fb923c;
-    --theme-500: #f97316;
-    --theme-600: #ea580c;
-    --theme-700: #c2410c;
-    --theme-800: #9a3412;
-    --theme-900: #7c2d12;
-    --theme-950: #431407;
+    --theme-50: #fbf9f4;
+    --theme-100: #f4efe3;
+    --theme-200: #e6dac0;
+    --theme-300: #d4bfa0;
+    --theme-400: #bfa17c;
+    --theme-500: #b0885c;
+    --theme-600: #a47350;
+    --theme-700: #895b42;
+    --theme-800: #724b3a;
+    --theme-900: #5c3d31;
+    --theme-950: #322019;
   }
   
   .theme-blue {
