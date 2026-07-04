@@ -66,8 +66,12 @@
                     <tr class="hover:bg-gray-50 transition-colors group">
                         <td class="px-6 py-4">
                             <div class="flex items-center">
-                                <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-sm font-medium text-gray-600 mr-3 border border-gray-200">
-                                    {{ substr($player->name, 0, 1) }}
+                                <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-sm font-medium text-gray-600 mr-3 border border-gray-200 overflow-hidden">
+                                    @if($player->photo)
+                                        <img src="{{ Storage::url($player->photo) }}" alt="{{ $player->name }}" class="w-full h-full object-cover">
+                                    @else
+                                        {{ substr($player->name, 0, 1) }}
+                                    @endif
                                 </div>
                                 <span class="text-sm font-medium text-gray-900 group-hover:text-orange-600 transition-colors">{{ $player->name }}</span>
                             </div>

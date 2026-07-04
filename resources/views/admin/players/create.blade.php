@@ -10,7 +10,7 @@
             <p class="text-sm text-gray-500 mt-1">Masukkan data diri dan detail profil pemain baru.</p>
         </div>
         
-        <form action="{{ route('admin.players.store') }}" method="POST" class="px-6 py-6 space-y-6">
+        <form action="{{ route('admin.players.store') }}" method="POST" enctype="multipart/form-data" class="px-6 py-6 space-y-6">
             @csrf
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -48,6 +48,12 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Musim Bergabung</label>
                     <input type="number" name="joined_season" required min="2000" max="2099" step="1" value="{{ old('joined_season', date('Y')) }}" class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Foto Pemain (Opsional)</label>
+                    <input type="file" name="photo" accept="image/*" class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all">
+                    <p class="text-xs text-gray-500 mt-1">Format: JPG, PNG. Maks: 2MB.</p>
                 </div>
             </div>
 

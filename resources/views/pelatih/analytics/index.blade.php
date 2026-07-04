@@ -28,8 +28,12 @@
         <div class="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow p-5 flex flex-col h-full">
             <div class="flex items-start justify-between mb-4">
                 <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-red-50 border border-red-100 rounded-full flex items-center justify-center font-bold text-red-700">
-                        {{ substr($player->name, 0, 1) }}
+                    <div class="w-10 h-10 bg-red-50 border border-red-100 rounded-full flex items-center justify-center font-bold text-red-700 overflow-hidden">
+                        @if($player->photo)
+                            <img src="{{ Storage::url($player->photo) }}" alt="{{ $player->name }}" class="w-full h-full object-cover">
+                        @else
+                            {{ substr($player->name, 0, 1) }}
+                        @endif
                     </div>
                     <div>
                         <h4 class="text-sm font-semibold text-gray-900">{{ $player->name }}</h4>

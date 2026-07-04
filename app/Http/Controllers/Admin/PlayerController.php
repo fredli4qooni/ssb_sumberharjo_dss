@@ -30,7 +30,12 @@ class PlayerController extends Controller
             'position' => 'required|string',
             'age_group' => 'required|string',
             'joined_season' => 'required|integer',
+            'photo' => 'nullable|image|max:2048',
         ]);
+
+        if ($request->hasFile('photo')) {
+            $validatedData['photo'] = $request->file('photo')->store('players', 'public');
+        }
 
         $player = \App\Models\Player::create($validatedData);
 
@@ -53,7 +58,15 @@ class PlayerController extends Controller
             'position' => 'required|string',
             'age_group' => 'required|string',
             'joined_season' => 'required|integer',
+            'photo' => 'nullable|image|max:2048',
         ]);
+
+        if ($request->hasFile('photo')) {
+            if ($player->photo) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($player->photo);
+            }
+            $validated['photo'] = $request->file('photo')->store('players', 'public');
+        }
 
         $player->update($validated);
 
@@ -62,6 +75,9 @@ class PlayerController extends Controller
 
     public function destroy(Player $player)
     {
+        if ($player->photo) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($player->photo);
+        }
         $player->delete();
         return redirect()->route('admin.players.index')->with('success', 'Data pemain berhasil dihapus.');
     }

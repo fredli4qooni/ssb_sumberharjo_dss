@@ -7,8 +7,12 @@
 
     <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex justify-between items-center">
         <div class="flex items-center space-x-6">
-            <div class="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center font-bold text-2xl text-ssb-black border border-gray-200">
-                {{ substr($player->name, 0, 1) }}
+            <div class="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center font-bold text-2xl text-ssb-black border border-gray-200 overflow-hidden">
+                @if($player->photo)
+                    <img src="{{ Storage::url($player->photo) }}" alt="{{ $player->name }}" class="w-full h-full object-cover">
+                @else
+                    {{ substr($player->name, 0, 1) }}
+                @endif
             </div>
             <div>
                 <h2 class="text-xl font-bold text-gray-900">{{ $player->name }}</h2>

@@ -33,8 +33,12 @@
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0 h-10 w-10">
-                                    <div class="h-10 w-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-700 font-bold text-sm border border-orange-200">
-                                        {{ substr($player->name, 0, 1) }}
+                                    <div class="h-10 w-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-700 font-bold text-sm border border-orange-200 overflow-hidden">
+                                        @if($player->photo)
+                                            <img src="{{ Storage::url($player->photo) }}" alt="{{ $player->name }}" class="w-full h-full object-cover">
+                                        @else
+                                            {{ substr($player->name, 0, 1) }}
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="ml-4">

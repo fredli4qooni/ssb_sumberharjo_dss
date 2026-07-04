@@ -29,7 +29,7 @@
             <p class="text-sm text-gray-500 mt-1">ID Pemain: #SH-{{ str_pad($player->id, 4, '0', STR_PAD_LEFT) }}</p>
         </div>
         
-        <form action="{{ route('admin.players.update', $player->id) }}" method="POST" class="px-6 py-6 space-y-6">
+        <form action="{{ route('admin.players.update', $player->id) }}" method="POST" enctype="multipart/form-data" class="px-6 py-6 space-y-6">
             @csrf
             @method('PUT')
             
@@ -66,6 +66,17 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Musim Bergabung</label>
                     <input type="number" name="joined_season" value="{{ old('joined_season', $player->joined_season) }}" required class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Foto Pemain (Opsional)</label>
+                    @if($player->photo)
+                        <div class="mb-3">
+                            <img src="{{ Storage::url($player->photo) }}" alt="Foto {{ $player->name }}" class="h-16 w-16 object-cover rounded-lg border border-gray-200">
+                        </div>
+                    @endif
+                    <input type="file" name="photo" accept="image/*" class="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all">
+                    <p class="text-xs text-gray-500 mt-1">Biarkan kosong jika tidak ingin mengubah. Format: JPG, PNG. Maks: 2MB.</p>
                 </div>
             </div>
 

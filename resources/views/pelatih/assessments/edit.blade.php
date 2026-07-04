@@ -5,8 +5,12 @@
 @section('content')
 <div class="max-w-5xl mx-auto space-y-6">
     <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6 flex items-center space-x-5">
-        <div class="w-14 h-14 bg-orange-50 rounded-full flex items-center justify-center font-bold text-xl text-orange-700 border border-orange-100">
-            {{ substr($player->name, 0, 1) }}
+        <div class="w-14 h-14 bg-orange-50 rounded-full flex items-center justify-center font-bold text-xl text-orange-700 border border-orange-100 overflow-hidden">
+            @if($player->photo)
+                <img src="{{ Storage::url($player->photo) }}" alt="{{ $player->name }}" class="w-full h-full object-cover">
+            @else
+                {{ substr($player->name, 0, 1) }}
+            @endif
         </div>
         <div>
             <h2 class="text-lg font-bold text-gray-900">{{ $player->name }}</h2>
