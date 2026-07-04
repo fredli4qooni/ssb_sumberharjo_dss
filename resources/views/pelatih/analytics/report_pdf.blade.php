@@ -61,7 +61,7 @@
     </table>
 
     <div class="footer">
-        <p>Dicetak pada: {{ date('d M Y H:i') }}</p>
+        <p>Dicetak pada: {{ now()->timezone('Asia/Jakarta')->format('d M Y H:i') }} WIB</p>
         <br><br><br>
         <p>( __________________________ )<br>Kepala Pelatih SSB Sumberharjo</p>
     </div>
