@@ -98,7 +98,7 @@
                                 <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Rank</th>
                                 <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Nama Pemain</th>
                                 <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Kelompok Usia</th>
-                                <th scope="col" class="px-6 py-4 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">Skor Optimasi (Y)</th>
+                                <th scope="col" class="px-6 py-4 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">Skor Optimasi (Yi)</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-100">
@@ -223,7 +223,7 @@
 
                                     <div class="mt-2 bg-slate-950/80 backdrop-blur-sm border border-white/20 rounded-lg py-0.5 px-2 text-center max-w-[95px] md:max-w-[110px] shadow-lg transition-colors group-hover:bg-orange-600 group-hover:border-white">
                                         <p class="text-white font-bold text-[9px] md:text-[10px] truncate">{{ $player['player_name'] }}</p>
-                                        <p class="text-orange-400 font-mono text-[8px] md:text-[9px] group-hover:text-white transition-colors">Y: {{ number_format($player['score'], 3) }}</p>
+                                        <p class="text-orange-400 font-mono text-[8px] md:text-[9px] group-hover:text-white transition-colors">Yi: {{ number_format($player['score'], 3) }}</p>
                                     </div>
                                 </button>
                             @endforeach
@@ -256,7 +256,7 @@
             <div class="bg-orange-50 rounded-2xl p-4 border border-orange-100 flex justify-between items-center">
                 <div>
                     <h5 class="text-xs font-bold text-orange-800 uppercase tracking-wider">Skor Optimasi Akhir MOORA</h5>
-                    <p class="text-[11px] text-gray-500 mt-0.5">Semakin tinggi nilai Y, semakin direkomendasikan.</p>
+                    <p class="text-[11px] text-gray-500 mt-0.5">Semakin tinggi nilai Yi, semakin direkomendasikan.</p>
                 </div>
                 <div id="modalPlayerScore" class="text-2xl font-black text-orange-600 font-mono">0.4521</div>
             </div>
