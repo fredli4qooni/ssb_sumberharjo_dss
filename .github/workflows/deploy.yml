@@ -31,16 +31,19 @@ jobs:
         npm install
         npm run build
 
-    - name: Sync files to DirectAdmin (FTP)
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-      with:
-        server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        server-dir: /domains/ssb-sumberharjo.web.id/public_html/
-        exclude: |
-          **/.git*
-          **/.git*/**
-          **/node_modules/**
-          .env.example
-          .github/**
+    - name: Sync files to DirectAdmin (FTP via lftp)
+      env:
+        FTP_SERVER: ${{ secrets.FTP_SERVER }}
+        FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      run: |
+        sudo apt-get update && sudo apt-get install -y lftp
+        lftp -c "
+        set ftp:ssl-allow yes
+        set ssl:verify-certificate no
+        set net:max-retries 3
+        set net:timeout 15
+        set net:reconnect-interval-base 5
+        open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER
+        mirror -R --parallel=2 --continue --exclude-glob .git* --exclude-glob node_modules/ --exclude .env.example --exclude .github/ ./ /domains/ssb-sumberharjo.web.id/public_html/
+        "
