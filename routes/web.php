@@ -83,8 +83,15 @@ Route::get('/wipe-database-rahasia', function () {
 // Route rahasia untuk membuat storage:link di hosting tanpa terminal
 Route::get('/link-storage-rahasia', function () {
     try {
-        \Illuminate\Support\Facades\Artisan::call('storage:link');
-        return "BERHASIL! Storage link telah dibuat. Foto dan berkas sekarang bisa diakses publik.";
+        $publicPath = public_path('storage');
+        if (file_exists($publicPath) || is_link($publicPath)) {
+            unlink($publicPath);
+        }
+        
+        // Buat symlink relatif yang 1000% aman untuk Shared Hosting
+        symlink('../storage/app/public', $publicPath);
+        
+        return "BERHASIL REPAIR! Storage link relatif telah diperbaiki. Silakan cek foto Anda.";
     } catch (\Exception $e) {
         return "GAGAL: " . $e->getMessage();
     }
