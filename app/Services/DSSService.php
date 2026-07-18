@@ -34,34 +34,49 @@ class DSSService
         $pmResults = [];
 
         foreach ($assessments as $assessment) {
-            $gapPassing = $this->getGapWeight($assessment->passing - $target->target_passing);
-            $gapControlling = $this->getGapWeight($assessment->controlling - $target->target_controlling);
-            $gapDribbling = $this->getGapWeight($assessment->dribbling - $target->target_dribbling);
-            $nTeknik = (($gapPassing + $gapControlling + $gapDribbling) / 3) * $params->core_factor_pct;
 
-            $gapEndurance = $this->getGapWeight($assessment->endurance - $target->target_endurance);
-            $gapSpeed = $this->getGapWeight($assessment->speed - $target->target_speed);
-            $gapKelincahan = $this->getGapWeight($assessment->kelincahan - $target->target_kelincahan);
-            $nFisik = ($gapEndurance * $params->core_factor_pct) + (($gapSpeed + $gapKelincahan) / 2 * $params->secondary_factor_pct);
+// 1. ASPEK TEKNIK (CF: Passing, Controlling | SF: Dribbling)
+$gapPassing     = $this->getGapWeight($assessment->passing - $target->target_passing);
+$gapControlling = $this->getGapWeight($assessment->controlling - $target->target_controlling);
+$gapDribbling   = $this->getGapWeight($assessment->dribbling - $target->target_dribbling);
 
-            $gapPositioning = $this->getGapWeight($assessment->positioning - $target->target_positioning);
-            $gapTaktik = $this->getGapWeight($assessment->pemahaman_taktik - $target->target_pemahaman_taktik);
-            $nTaktik = (($gapPositioning + $gapTaktik) / 2) * $params->core_factor_pct;
+$nCfTeknik = ($gapPassing + $gapControlling) / 2;
+$nSfTeknik = $gapDribbling;
+$nTeknik   = ($nCfTeknik * $params->core_factor_pct) + ($nSfTeknik * $params->secondary_factor_pct);
 
-            $gapMental = $this->getGapWeight($assessment->mental_bertanding - $target->target_mental_bertanding);
-            $nMental = $gapMental * $params->core_factor_pct;
+// 2. ASPEK FISIK (CF: Endurance, Speed | SF: Kelincahan)
+$gapEndurance  = $this->getGapWeight($assessment->endurance - $target->target_endurance);
+$gapSpeed      = $this->getGapWeight($assessment->speed - $target->target_speed);
+$gapKelincahan = $this->getGapWeight($assessment->kelincahan - $target->target_kelincahan);
 
-            $nCost = 6 - $assessment->ketidakhadiran;
+$nCfFisik = ($gapEndurance + $gapSpeed) / 2;
+$nSfFisik = $gapKelincahan;
+$nFisik   = ($nCfFisik * $params->core_factor_pct) + ($nSfFisik * $params->secondary_factor_pct);
 
-            $pmResults[] = [
-                'assessment_id' => $assessment->id,
-                'player' => $assessment->player,
-                'teknik' => $nTeknik,
-                'fisik' => $nFisik,
-                'taktik' => $nTaktik,
-                'mental' => $nMental,
-                'cost' => $nCost,
-            ];
+// 3. ASPEK TAKTIK (Semua CF: Positioning, Pemahaman Taktik)
+$gapPositioning = $this->getGapWeight($assessment->positioning - $target->target_positioning);
+$gapTaktik      = $this->getGapWeight($assessment->pemahaman_taktik - $target->target_pemahaman_taktik);
+
+$nTaktik = ($gapPositioning + $gapTaktik) / 2;
+
+// 4. ASPEK MENTAL (CF: Mental Bertanding)
+$gapMental = $this->getGapWeight($assessment->mental_bertanding - $target->target_mental_bertanding);
+
+$nMental = $gapMental;
+
+// 5. KRITERIA COST (Ketidakhadiran)
+$nCost = 6 - $assessment->ketidakhadiran;
+
+$pmResults[] = [
+    'assessment_id' => $assessment->id,
+    'player'        => $assessment->player,
+    'teknik'        => $nTeknik,
+    'fisik'         => $nFisik,
+    'taktik'        => $nTaktik,
+    'mental'        => $nMental,
+    'cost'          => $nCost,
+];
+
         }
 
         $sumTeknik = 0; $sumFisik = 0; $sumTaktik = 0; $sumMental = 0; $sumCost = 0;
