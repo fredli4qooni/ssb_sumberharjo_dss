@@ -69,3 +69,13 @@ Route::post('/notifications/mark-all-read', function (\Illuminate\Http\Request $
 })->name('notifications.markAllRead')->middleware('auth');
 
 require __DIR__ . '/auth.php';
+
+// Route rahasia untuk mengosongkan database agar import SQL lokal berhasil
+Route::get('/wipe-database-rahasia', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('db:wipe', ['--force' => true]);
+        return "BERHASIL KOSONG! Semua tabel telah dihapus. Silakan kembali ke phpMyAdmin dan lakukan Import file SQL Anda sekarang.";
+    } catch (\Exception $e) {
+        return "GAGAL: " . $e->getMessage();
+    }
+});
