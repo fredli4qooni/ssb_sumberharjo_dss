@@ -2,7 +2,7 @@
     RewriteEngine On
     
     # Aman: Blokir akses langsung ke file sensitif jika konfigurasi rewrite bocor
-    RewriteRule ^(\.env|storage|vendor|app|config|database|resources|tests) - [F,L,NC]
+    RewriteRule ^(\.env|vendor|app|config|database|resources|tests) - [F,L,NC]
 
     # Alihkan semua request ke folder public/
     RewriteRule ^(.*)$ public/$1 [L]
