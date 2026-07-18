@@ -69,16 +69,3 @@ Route::post('/notifications/mark-all-read', function (\Illuminate\Http\Request $
 })->name('notifications.markAllRead')->middleware('auth');
 
 require __DIR__ . '/auth.php';
-
-// Route Rahasia untuk Install Database di Hosting (Tanpa Terminal)
-Route::get('/install-dss-rahasia', function () {
-    try {
-        \Illuminate\Support\Facades\Artisan::call('migrate:fresh', [
-            '--seed' => true,
-            '--force' => true
-        ]);
-        return "SUKSES! Database berhasil di-migrate dan di-seed! Pesan: " . \Illuminate\Support\Facades\Artisan::output();
-    } catch (\Exception $e) {
-        return "GAGAL: " . $e->getMessage();
-    }
-});
