@@ -31,7 +31,29 @@ jobs:
         npm install
         npm run build
 
-    - name: Sync files to DirectAdmin (FTP via lftp)
+    - name: Prepare Deployment Files
+      run: |
+        # Buat script unzip php
+        cat << 'EOF' > unzip.php
+        <?php
+        $zip = new ZipArchive;
+        $res = $zip->open('deploy.zip');
+        if ($res === TRUE) {
+            $zip->extractTo(__DIR__);
+            $zip->close();
+            unlink('deploy.zip');
+            unlink(__FILE__);
+            echo 'OK';
+        } else {
+            echo 'FAILED';
+        }
+        ?>
+        EOF
+        
+        # Zip semua file kecuali yang tidak perlu
+        zip -r deploy.zip . -x "*.git*" "node_modules/*" ".env.example" ".github/*" "unzip.php" "deploy.zip"
+
+    - name: Upload Zip to Server
       env:
         FTP_SERVER: ${{ secrets.FTP_SERVER }}
         FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
@@ -41,9 +63,13 @@ jobs:
         lftp -c "
         set ftp:ssl-allow yes
         set ssl:verify-certificate no
-        set net:max-retries 3
-        set net:timeout 15
-        set net:reconnect-interval-base 5
+        set net:timeout 30
         open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER
-        mirror -R --parallel=2 --continue --exclude-glob .git* --exclude-glob node_modules/ --exclude .env.example --exclude .github/ ./ /domains/ssb-sumberharjo.web.id/public_html/
+        cd /domains/ssb-sumberharjo.web.id/public_html/
+        put deploy.zip
+        put unzip.php
         "
+
+    - name: Extract Files on Server
+      run: |
+        curl -sS https://ssb-sumberharjo.web.id/unzip.php
