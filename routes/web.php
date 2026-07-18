@@ -79,3 +79,13 @@ Route::get('/wipe-database-rahasia', function () {
         return "GAGAL: " . $e->getMessage();
     }
 });
+
+// Route rahasia untuk membuat storage:link di hosting tanpa terminal
+Route::get('/link-storage-rahasia', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('storage:link');
+        return "BERHASIL! Storage link telah dibuat. Foto dan berkas sekarang bisa diakses publik.";
+    } catch (\Exception $e) {
+        return "GAGAL: " . $e->getMessage();
+    }
+});
